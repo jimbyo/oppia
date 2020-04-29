@@ -12,7 +12,8 @@ from . import setup
 from . import setup_gae
 from . import build
 
-OPPIA_SERVER_PORT = 8282
+OPPIA_SERVER_PORT = 8181
+COMPY_SERVER_PORT = 9999
 RUNNING_PROCESSES = []
 GO_VERSION = "1.12.9"
 GO_PATH = os.path.join(common.OPPIA_TOOLS_DIR, 'go-%s' % GO_VERSION)
@@ -101,8 +102,9 @@ def cleanup():
 
 def start_proxy_server():
     """Start compy proxy server to serve gzipped assets."""
-    p = subprocess.Popen([COMPY_BINARY, '-host', ':%s' % OPPIA_SERVER_PORT,
-        '-gzip', '9'])
+    ssl_options = '-cert cert.crt -key cert.key -ca ca.crt -cakey ca.key'
+    p = subprocess.Popen([COMPY_BINARY, '-host', ':%s' % COMPY_SERVER_PORT,
+        '-gzip', '9'] + ssl_options.split(' '))
     RUNNING_PROCESSES.append(p)
 
 
