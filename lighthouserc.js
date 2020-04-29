@@ -71,8 +71,8 @@ module.exports = {
           }
         },
         {
-          'matchingUrlPattern': 'http://[^/]+/library',
-          'assertions': {
+          matchingUrlPattern: 'http://[^/]+/library',
+          assertions: {
             // Performance Audits
             'first-contentful-paint': ['warn', {minScore: 1}],
             'first-meaningful-paint': ['warn', {minScore: 1}],
