@@ -20,17 +20,46 @@ require('domain/utilities/url-interpolation.service.ts');
 require('services/alerts.service.ts');
 require('domain/skill/skill-creation-backend-api.service.ts');
 
+require(
+  'pages/topics-and-skills-dashboard-page/' +
+  'topics-and-skills-dashboard-page.constants.ajs.ts');
+
 angular.module('oppia').factory('SkillCreationService', [
   '$rootScope', '$timeout', '$window', 'AlertsService',
   'SkillCreationBackendApiService', 'UrlInterpolationService',
+  'EVENT_TOPICS_AND_SKILLS_DASHBOARD_REINITIALIZED',
+  'SKILL_DESCRIPTION_STATUS_VALUES',
   function(
       $rootScope, $timeout, $window, AlertsService,
-      SkillCreationBackendApiService, UrlInterpolationService) {
+      SkillCreationBackendApiService, UrlInterpolationService,
+      EVENT_TOPICS_AND_SKILLS_DASHBOARD_REINITIALIZED,
+      SKILL_DESCRIPTION_STATUS_VALUES) {
     var CREATE_NEW_SKILL_URL_TEMPLATE = (
       '/skill_editor/<skill_id>');
     var skillCreationInProgress = false;
+    var skillDescriptionStatusMarker = (
+      SKILL_DESCRIPTION_STATUS_VALUES.STATUS_UNCHANGED);
 
     return {
+      markChangeInSkillDescription: function() {
+        skillDescriptionStatusMarker = (
+          SKILL_DESCRIPTION_STATUS_VALUES.STATUS_CHANGED);
+      },
+
+      getSkillDescriptionStatus: function() {
+        return skillDescriptionStatusMarker;
+      },
+
+      disableSkillDescriptionStatusMarker: function() {
+        skillDescriptionStatusMarker = (
+          SKILL_DESCRIPTION_STATUS_VALUES.STATUS_DISABLED);
+      },
+
+      resetSkillDescriptionStatusMarker: function() {
+        skillDescriptionStatusMarker = (
+          SKILL_DESCRIPTION_STATUS_VALUES.STATUS_UNCHANGED);
+      },
+
       createNewSkill: function(
           description, rubrics, explanation, linkedTopicIds) {
         if (skillCreationInProgress) {
@@ -41,18 +70,20 @@ angular.module('oppia').factory('SkillCreationService', [
         }
         skillCreationInProgress = true;
         AlertsService.clearWarnings();
-        $rootScope.loadingMessage = 'Creating skill';
         SkillCreationBackendApiService.createSkill(
           description, rubrics, explanation, linkedTopicIds)
           .then(function(response) {
             $timeout(function() {
-              $window.location = UrlInterpolationService.interpolateUrl(
-                CREATE_NEW_SKILL_URL_TEMPLATE, {
-                  skill_id: response.skillId
-                });
+              $rootScope.$broadcast(
+                EVENT_TOPICS_AND_SKILLS_DASHBOARD_REINITIALIZED, true);
+              skillCreationInProgress = false;
+              $window.open(
+                UrlInterpolationService.interpolateUrl(
+                  CREATE_NEW_SKILL_URL_TEMPLATE, {
+                    skill_id: response.skillId
+                  }), '_blank'
+              );
             }, 150);
-          }, function() {
-            $rootScope.loadingMessage = '';
           });
       }
     };

@@ -386,17 +386,6 @@
         "rootDirPrefix": "MathJax-",
         "targetDirPrefix": "MathJax-"
       },
-      "mathJs": {
-        "version": "5.10.3",
-        "downloadFormat": "files",
-        "url": "https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.10.3",
-        "rootDirPrefix": "math-js-",
-        "targetDirPrefix": "math-js-",
-        "files": ["math.js", "math.min.js", "math.min.map"],
-        "bundle": {
-          "js": ["math.js"]
-        }
-      },
       "midiJs": {
         "version": "a8a84257afa70721ae462448048a87301fc1554a",
         "downloadFormat": "zip",
@@ -413,17 +402,6 @@
         "bundle": {
           "css": ["ng-joyride.css"],
           "js": ["ng-joyride.js"]
-        }
-      },
-      "ngImageCrop": {
-        "version": "0.3.2",
-        "downloadFormat": "zip",
-        "url": "https://github.com/alexk111/ngImgCrop/archive/v0.3.2.zip",
-        "rootDirPrefix": "ngImgCrop-",
-        "targetDirPrefix": "ng-img-crop-",
-        "bundle": {
-          "css": ["compile/minified/ng-img-crop.css"],
-          "js": ["compile/minified/ng-img-crop.js"]
         }
       },
       "ngInfiniteScroll": {
@@ -534,13 +512,6 @@
         "url": "https://github.com/yui/yuicompressor/releases/download/v2.4.8",
         "files": ["yuicompressor-2.4.8.jar"],
         "targetDirPrefix": "yuicompressor-"
-      },
-      "browsermob-proxy": {
-        "version": "2.1.1",
-        "downloadFormat": "zip",
-        "url": "https://github.com/lightbody/browsermob-proxy/releases/download/browsermob-proxy-2.1.1/browsermob-proxy-2.1.1-bin.zip",
-        "rootDirPrefix": "browsermob-proxy-",
-        "targetDirPrefix": "browsermob-proxy-"
       }
     }
   }
