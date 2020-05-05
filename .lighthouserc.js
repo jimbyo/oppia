@@ -27,8 +27,16 @@ module.exports = {
       // startServerCommand: 'python -m scripts.lighthouse_checks',
       url: [
         'http://127.0.0.1:8181/splash',
-        // 'http://127.0.0.1:8181/library', Has an error show up
-        'http://127.0.0.1:8181/donate'
+        'http://127.0.0.1:8181/get_started',
+        'http://127.0.0.1:8181/teach',
+        'http://127.0.0.1:8181/library',
+        'http://127.0.0.1:8181/donate',
+        'http://127.0.0.1:8181/privacy',
+        'http://127.0.0.1:8181/contact',
+        'http://127.0.0.1:8181/about',
+        'http://127.0.0.1:8181/terms',
+        'http://127.0.0.1:8181/thanks',
+
       ],
       settings: {
         chromeFlags: ['--proxy-server=http://127.0.0.1:9999", "--allow-insecure-localhost'],
@@ -37,14 +45,17 @@ module.exports = {
     assert: {
       assertMatrix: [
         {
-          matchingUrlPattern: 'http://[^/]+/splash',
+          matchingUrlPattern: '.*',
+          // General Webpage Audits 
           assertions: {
             // Performance Audits
-            'first-contentful-paint': ['warn', {minScore: 1}],
-            'first-meaningful-paint': ['warn', {minScore: 1}],
-            'first-cpu-idle': ['warn', {minScore: 1}],
-            'speed-index': ['warn', {minScore: 1}],
-            interactive: ['warn', {minScore: 1}],
+            // maxNumericValue is miliseconds
+            'first-contentful-paint': ['warn', {maxNumericValue: 12300}],
+            'first-meaningful-paint': ['warn', {maxNumericValue: 12800}],
+            'first-cpu-idle': ['warn', {maxNumericValue: 14600}],
+            'speed-index': ['warn', {maxNumericValue: 12300}],
+            interactive: ['warn', {maxNumericValue: 15400}],
+            'max-potential-fid': ["warn", {maxNumericValue: 1300}],
             // Performance Opportunities
             'render-blocking-resources': ['warn', {minScore: 1}],
             'uses-responsive-images': ['warn', {minScore: 1}],
@@ -81,85 +92,54 @@ module.exports = {
         {
           matchingUrlPattern: 'http://[^/]+/library',
           assertions: {
-            // Performance Audits
-            'first-contentful-paint': ['warn', {minScore: 1}],
-            'first-meaningful-paint': ['warn', {minScore: 1}],
-            'first-cpu-idle': ['warn', {minScore: 1}],
-            'speed-index': ['warn', {minScore: 1}],
-            interactive: ['warn', {minScore: 1}],
-            // Performance Opportunities
-            'render-blocking-resources': ['warn', {minScore: 1}],
-            'uses-responsive-images': ['warn', {minScore: 1}],
-            'offscreen-images': ['warn', {minScore: 1}],
-            'unminified-css': ['warn', {minScore: 1}],
-            'unminified-javascript': ['warn', {minScore: 1}],
-            'unused-css-rules': ['warn', {minScore: 1}],
-            'uses-optimized-images': ['warn', {minScore: 1}],
-            'uses-webp-images': ['warn', {minScore: 1}],
-            'uses-text-compression': ['warn', {minScore: 1}],
-            'uses-rel-preconnect': ['warn', {minScore: 1}],
-            'time-to-first-byte': ['warn', {minScore: 1}],
-            redirects: ['warn', {minScore: 1}],
-            'uses-rel-preload': ['warn', {minScore: 1}],
-            'efficient-animated-content': ['warn', {minScore: 1}],
-            // Best Practice Audits
-            'appcache-manifest': ['warn', {minScore: 1}],
-            'is-on-https': ['warn', {minScore: 1}],
-            'uses-http2': ['warn', {minScore: 1}],
-            'uses-passive-event-listeners': ['warn', {minScore: 1}],
-            'no-document-write': ['warn', {minScore: 1}],
-            'external-anchors-use-rel-noopener': ['warn', {minScore: 1}],
-            'geolocation-on-start': ['warn', {minScore: 1}],
-            doctype: ['warn', {minScore: 1}],
-            'no-vulnerable-libraries': ['warn', {minScore: 1}],
-            'js-libraries': ['warn', {minScore: 1}],
-            'notification-on-start': ['warn', {minScore: 1}],
-            deprecations: ['warn', {minScore: 1}],
-            'password-inputs-can-be-pasted-into': ['warn', {minScore: 1}],
-            'errors-in-console': ['warn', {minScore: 1}],
-            'image-aspect-ratio': ['warn', {minScore: 1}]
+          }
+        },
+        {
+          matchingUrlPattern: 'http://[^/]+/get_started',
+          assertions: {
+
           }
         },
         {
           matchingUrlPattern: 'http://[^/]+/donate',
           assertions: {
-            // Performance Audits
-            'first-contentful-paint': ['warn', {minScore: 1}],
-            'first-meaningful-paint': ['warn', {minScore: 1}],
-            'first-cpu-idle': ['warn', {minScore: 1}],
-            'speed-index': ['warn', {minScore: 1}],
-            interactive: ['warn', {minScore: 1}],
-            // Performance Opportunities
-            'render-blocking-resources': ['warn', {minScore: 1}],
-            'uses-responsive-images': ['warn', {minScore: 1}],
-            'offscreen-images': ['warn', {minScore: 1}],
-            'unminified-css': ['warn', {minScore: 1}],
-            'unminified-javascript': ['warn', {minScore: 1}],
-            'unused-css-rules': ['warn', {minScore: 1}],
-            'uses-optimized-images': ['warn', {minScore: 1}],
-            'uses-webp-images': ['warn', {minScore: 1}],
-            'uses-text-compression': ['warn', {minScore: 1}],
-            'uses-rel-preconnect': ['warn', {minScore: 1}],
-            'time-to-first-byte': ['warn', {minScore: 1}],
-            redirects: ['warn', {minScore: 1}],
-            'uses-rel-preload': ['warn', {minScore: 1}],
-            'efficient-animated-content': ['warn', {minScore: 1}],
-            // Best Practice Audits
-            'appcache-manifest': ['warn', {minScore: 1}],
-            'is-on-https': ['warn', {minScore: 1}],
-            'uses-http2': ['warn', {minScore: 1}],
-            'uses-passive-event-listeners': ['warn', {minScore: 1}],
-            'no-document-write': ['warn', {minScore: 1}],
-            'external-anchors-use-rel-noopener': ['warn', {minScore: 1}],
-            'geolocation-on-start': ['warn', {minScore: 1}],
-            doctype: ['warn', {minScore: 1}],
-            'no-vulnerable-libraries': ['warn', {minScore: 1}],
-            'js-libraries': ['warn', {minScore: 1}],
-            'notification-on-start': ['warn', {minScore: 1}],
-            deprecations: ['warn', {minScore: 1}],
-            'password-inputs-can-be-pasted-into': ['warn', {minScore: 1}],
-            'errors-in-console': ['warn', {minScore: 1}],
-            'image-aspect-ratio': ['warn', {minScore: 1}]
+
+          }
+        },
+        {
+          matchingUrlPattern: 'http://[^/]+/teach',
+          assertions: {
+
+          }
+        },
+        {
+          matchingUrlPattern: 'http://[^/]+/privacy',
+          assertions: {
+
+          }
+        },
+        {
+          matchingUrlPattern: 'http://[^/]+/contact',
+          assertions: {
+
+          }
+        },
+        {
+          matchingUrlPattern: 'http://[^/]+/about',
+          assertions: {
+
+          }
+        },
+        {
+          matchingUrlPattern: 'http://[^/]+/terms',
+          assertions: {
+
+          }
+        },
+        {
+          matchingUrlPattern: 'http://[^/]+/thanks',
+          assertions: {
+
           }
         },
       ]

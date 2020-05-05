@@ -128,8 +128,9 @@ def wait_for_port_to_be_open(port_number):
 
 
 def run_lighthouse_checks():
-    """Run lighthouse checks."""
-    pass
+    bashCommand = "lhci autorun"
+    process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
 
 
 def main():
